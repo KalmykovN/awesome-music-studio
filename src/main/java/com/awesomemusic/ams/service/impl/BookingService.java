@@ -31,10 +31,9 @@ public class BookingService implements IBookingService {
         Slot slot = slotRepository.findById(bookingDTO.getSlot().getId())
                 .orElseThrow(() -> new SlotNotFoundException("Booking not found with code: " + bookingDTO.getSlot().getId()));
 
-        Booking booking
-                = BookingBuilder.toEntity(bookingDTO, SlotDTO.builder().id(slot.getId()).name(slot.getName()).build());
+        Booking createdBooking
+                = bookingRepository.save(BookingBuilder.toEntity(bookingDTO, SlotDTO.builder().id(slot.getId()).name(slot.getName()).build()));
 
-        Booking createdBooking = bookingRepository.save(booking);
         return BookingBuilder.toDto(createdBooking);
     }
 
