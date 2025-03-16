@@ -1,0 +1,18 @@
+spring:
+  application:
+      name: ams
+
+  datasource:
+    url: jdbc:h2:mem:ams
+    driver-class-name: org.h2.Driver
+    username: root
+    password: root
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+  h2:
+    console:
+      enabled: true

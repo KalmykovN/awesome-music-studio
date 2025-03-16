@@ -54,9 +54,9 @@ The app will start on `http://localhost:8080`
 
 ## Database Access
 H2 database console available at: `http://localhost:8080/h2-console`
-- JDBC URL: `jdbc:h2:mem:testdb`
-- Username: `sa`
-- Password: (leave empty)
+- JDBC URL: `jdbc:h2:mem:ams`
+- Username: `root`
+- Password: `root`
 
 ## Contributing
 Feel free to fork this repository and submit pull requests.
