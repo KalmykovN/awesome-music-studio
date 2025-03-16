@@ -15,7 +15,7 @@ public class ManagerBookingController {
 
     private final IManagerBookingService managerBookingService;
 
-    public ManagerBookingController(ManagerBookingService managerBookingService) {
+    public ManagerBookingController(IManagerBookingService managerBookingService) {
         this.managerBookingService = managerBookingService;
     }
 

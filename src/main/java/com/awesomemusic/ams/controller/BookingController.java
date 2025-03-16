@@ -14,7 +14,7 @@ public class BookingController {
     private final IBookingService bookingService;
 
     @Autowired
-    public BookingController(BookingService bookingService) {
+    public BookingController(IBookingService bookingService) {
         this.bookingService = bookingService;
     }
 
