@@ -9,6 +9,7 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Table(name = "booking")
 @Entity
@@ -33,10 +34,10 @@ public class Booking {
     private Status status = Status.PENDING;
 
     @Column(name = "code")
-    private String code;
+    private String code = UUID.randomUUID().toString();
 
     @CreatedDate
-    private LocalDateTime createdAt;
+    private LocalDateTime createdAt = LocalDateTime.now();
 
     @LastModifiedDate
     private LocalDateTime updatedAt;

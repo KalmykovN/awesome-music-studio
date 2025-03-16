@@ -21,12 +21,15 @@ public class BookingDTO {
 
     private Status status;
 
+    private String code; // New field added
+
     private BookingDTO(Builder builder) {
         this.id = builder.id;
         this.customerName = builder.customerName;
         this.email = builder.email;
         this.slot = builder.slot;
         this.status = builder.status;
+        this.code = builder.code;
     }
 
     public BookingDTO() {
@@ -72,6 +75,14 @@ public class BookingDTO {
         this.status = status;
     }
 
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
     public static Builder builder() {
         return new Builder();
     }
@@ -82,6 +93,7 @@ public class BookingDTO {
         private String email;
         private Slot slot;
         private Status status;
+        private String code; // Builder field for code
 
         public Builder id(Long id) {
             this.id = id;
@@ -108,8 +120,14 @@ public class BookingDTO {
             return this;
         }
 
+        public Builder code(String code) {
+            this.code = code;
+            return this;
+        }
+
         public BookingDTO build() {
             return new BookingDTO(this);
         }
     }
 }
+

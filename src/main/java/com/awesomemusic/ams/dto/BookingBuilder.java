@@ -13,6 +13,7 @@ public class BookingBuilder {
                 .email(booking.getEmail())
                 .slot(booking.getSlot())
                 .status(booking.getStatus())
+                .code(booking.getCode())
                 .build();
     }
 
@@ -25,7 +26,6 @@ public class BookingBuilder {
         booking.setCustomerName(bookingDTO.getCustomerName());
         booking.setEmail(bookingDTO.getEmail());
         booking.setSlot(bookingDTO.getSlot());
-        booking.setStatus(bookingDTO.getStatus());
         return booking;
     }
 }
