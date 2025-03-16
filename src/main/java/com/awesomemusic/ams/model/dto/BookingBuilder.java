@@ -2,11 +2,8 @@ package com.awesomemusic.ams.model.dto;
 
 import com.awesomemusic.ams.model.Booking;
 import com.awesomemusic.ams.model.Slot;
-import lombok.Data;
-import org.hibernate.annotations.Comment;
 import org.springframework.stereotype.Component;
 
-@Data
 @Component
 public class BookingBuilder {
     public static BookingDTO toDto(Booking booking) {
@@ -29,14 +26,14 @@ public class BookingBuilder {
                 .build();
     }
 
-    public static Booking toEntity(BookingDTO bookingDTO) {
+    public static Booking toEntity(BookingDTO bookingDTO, SlotDTO slotDTO) {
         if (bookingDTO == null) {
             return null;
         }
 
         Slot slot = Slot.builder()
-                .id(bookingDTO.getSlot().getId())
-                .name(bookingDTO.getSlot().getName())
+                .id(slotDTO.getId())
+                .name(slotDTO.getName())
                 .build();
 
         return Booking.builder()

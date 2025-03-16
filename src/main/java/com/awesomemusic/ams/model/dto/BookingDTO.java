@@ -3,6 +3,7 @@ package com.awesomemusic.ams.model.dto;
 import com.awesomemusic.ams.model.Slot;
 import com.awesomemusic.ams.model.enumerations.SlotName;
 import com.awesomemusic.ams.model.enumerations.Status;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -26,7 +27,7 @@ public class BookingDTO {
     private String email;
 
     @NotNull(message = "Time slot is required")
-    private SlotDTO slot;
+    private @Valid SlotDTO slot;
 
     private Status status;
 

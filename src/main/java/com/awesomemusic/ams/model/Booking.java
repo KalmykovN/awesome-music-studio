@@ -9,15 +9,15 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Data
+@Table(name = "booking")
+@Entity
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
-@Entity
-@Table(name = "booking")
 public class Booking {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -32,16 +32,19 @@ public class Booking {
     @JoinColumn(name = "slot_id", nullable = false)
     private Slot slot;
 
-    @Enumerated(EnumType.STRING)
     @Column(name = "status")
-    private Status status;
+    @Enumerated(EnumType.STRING)
+    @Builder.Default
+    private Status status = Status.PENDING;
+
+    @Column(name = "code", unique = true)
+    @Builder.Default
+    private String code = UUID.randomUUID().toString();
 
     @CreatedDate
-    private LocalDateTime createdAt;
+    @Builder.Default
+    private LocalDateTime createdAt = LocalDateTime.now();
 
     @LastModifiedDate
     private LocalDateTime updatedAt;
-
-    @Column(name = "code", unique = true)
-    private String code;
 }

@@ -12,8 +12,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class SlotDTO {
+    @NotNull(message = "Slot id is required")
     private Long id;
 
-    @NotNull(message = "Slot name is required")
     private SlotName name;
 }
