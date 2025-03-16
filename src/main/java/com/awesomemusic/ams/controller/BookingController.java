@@ -20,8 +20,8 @@ public class BookingController {
     }
 
     @PostMapping
-    public ResponseEntity<BookingDTO> createBooking(@RequestBody @Valid Booking booking) {
-        BookingDTO bookingDTO = bookingService.create(booking);
+    public ResponseEntity<BookingDTO> createBooking(@RequestBody @Valid BookingDTO request) {
+        BookingDTO bookingDTO = bookingService.create(request);
         return ResponseEntity.ok(bookingDTO);
     }
 

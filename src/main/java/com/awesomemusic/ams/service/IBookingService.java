@@ -5,7 +5,7 @@ import com.awesomemusic.ams.model.Booking;
 import jakarta.validation.Valid;
 
 public interface IBookingService {
-    BookingDTO create(Booking booking);
+    BookingDTO create(BookingDTO booking);
 
     BookingDTO getByCode(String code);
 }
