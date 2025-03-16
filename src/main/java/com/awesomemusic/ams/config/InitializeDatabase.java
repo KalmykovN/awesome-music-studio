@@ -20,14 +20,14 @@ public class InitializeDatabase {
         this.slotRepository = slotRepository;
     }
 
-    @Bean
-    InitializingBean sendDatabase() {
-        return () -> {
-            List<Slot> slots = new LinkedList<>();
-            slots.add(new Slot(SlotName.MORNING));
-            slots.add(new Slot(SlotName.AFTERNOON));
-            slots.add(new Slot(SlotName.EVENING));
-            slotRepository.saveAll(slots);
-        };
-    }
+//    @Bean
+//    InitializingBean sendDatabase() {
+//        return () -> {
+//            List<Slot> slots = new LinkedList<>();
+//            slots.add(new Slot(SlotName.MORNING));
+//            slots.add(new Slot(SlotName.AFTERNOON));
+//            slots.add(new Slot(SlotName.EVENING));
+//            slotRepository.saveAll(slots);
+//        };
+//    }
 }
