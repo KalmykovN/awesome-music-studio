@@ -25,10 +25,15 @@ public class ManagerBookingController {
         return ResponseEntity.ok(pendingBookings);
     }
 
-    @PatchMapping("/{code}/status")
-    public ResponseEntity<BookingDTO> updateBookingStatus(@PathVariable String code,
-                                                          @RequestParam Status newStatus) {
-        BookingDTO updatedBooking = managerBookingService.updateBookingStatus(code, newStatus);
+    @PatchMapping("/{code}/approve")
+    public ResponseEntity<BookingDTO> approveBooking(@PathVariable String code) {
+        BookingDTO updatedBooking = managerBookingService.updateBookingStatus(code, Status.APPROVED);
+        return ResponseEntity.ok(updatedBooking);
+    }
+
+    @PatchMapping("/{code}/reject")
+    public ResponseEntity<BookingDTO> rejectBooking(@PathVariable String code) {
+        BookingDTO updatedBooking = managerBookingService.updateBookingStatus(code, Status.REJECTED);
         return ResponseEntity.ok(updatedBooking);
     }
 }
