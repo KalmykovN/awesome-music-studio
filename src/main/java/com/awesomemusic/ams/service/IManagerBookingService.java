@@ -1,7 +1,7 @@
 package com.awesomemusic.ams.service;
 
-import com.awesomemusic.ams.dto.BookingDTO;
-import com.awesomemusic.ams.model.Status;
+import com.awesomemusic.ams.model.dto.BookingDTO;
+import com.awesomemusic.ams.model.enumerations.Status;
 
 import java.util.List;
 

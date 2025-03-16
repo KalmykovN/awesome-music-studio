@@ -1,12 +1,9 @@
 package com.awesomemusic.ams.controller;
 
-import com.awesomemusic.ams.dto.BookingDTO;
-import com.awesomemusic.ams.model.Booking;
+import com.awesomemusic.ams.model.dto.BookingDTO;
+import com.awesomemusic.ams.service.IBookingService;
 import com.awesomemusic.ams.service.impl.BookingService;
-import com.awesomemusic.ams.service.impl.ManagerBookingService;
 import jakarta.validation.Valid;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/v1/bookings")
 public class BookingController {
-    private final BookingService bookingService;
+    private final IBookingService bookingService;
 
     @Autowired
     public BookingController(BookingService bookingService) {

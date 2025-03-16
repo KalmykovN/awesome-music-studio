@@ -1,8 +1,6 @@
 package com.awesomemusic.ams.service;
 
-import com.awesomemusic.ams.dto.BookingDTO;
-import com.awesomemusic.ams.model.Booking;
-import jakarta.validation.Valid;
+import com.awesomemusic.ams.model.dto.BookingDTO;
 
 public interface IBookingService {
     BookingDTO create(BookingDTO booking);
