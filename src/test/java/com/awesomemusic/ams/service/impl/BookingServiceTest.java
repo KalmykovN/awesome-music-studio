@@ -1,6 +1,5 @@
 package com.awesomemusic.ams.service.impl;
 
-
 import com.awesomemusic.ams.exceptions.SlotNotFoundException;
 import com.awesomemusic.ams.model.Booking;
 import com.awesomemusic.ams.model.Slot;
@@ -10,19 +9,21 @@ import com.awesomemusic.ams.model.dto.BookingDTO;
 import com.awesomemusic.ams.model.dto.SlotDTO;
 import com.awesomemusic.ams.repository.BookingRepository;
 import com.awesomemusic.ams.repository.SlotRepository;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.*;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.when;
 
-
+@ExtendWith(MockitoExtension.class) // Use Mockito extension for unit tests.
 class BookingServiceTest {
+
     @Mock
     private BookingRepository bookingRepository;
 
@@ -31,11 +32,6 @@ class BookingServiceTest {
 
     @InjectMocks
     private BookingService bookingService;
-
-    @BeforeEach
-    public void setUp() {
-        MockitoAnnotations.openMocks(this);
-    }
 
     @Test
     void testCreateBookingSuccess() throws SlotNotFoundException {
@@ -103,7 +99,8 @@ class BookingServiceTest {
                 .code("ABC123")
                 .build();
 
-        when(bookingRepository.findBookingByCode("ABC123")).thenReturn(Optional.of(booking));
+        when(bookingRepository.findBookingByCode("ABC123"))
+                .thenReturn(Optional.of(booking));
 
         BookingDTO bookingDto = bookingService.getByCode("ABC123");
 
