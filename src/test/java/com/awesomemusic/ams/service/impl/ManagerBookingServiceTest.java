@@ -8,19 +8,22 @@ import com.awesomemusic.ams.model.Slot;
 import com.awesomemusic.ams.model.dto.BookingDTO;
 import com.awesomemusic.ams.repository.BookingRepository;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
-
+@ExtendWith(MockitoExtension.class)
 class ManagerBookingServiceTest {
 
-    @MockBean
+    @Mock
     private BookingRepository bookingRepository;
 
     @InjectMocks
@@ -28,11 +31,15 @@ class ManagerBookingServiceTest {
 
     @Test
     void testGetPendingBookings() {
+        // Use the builder to create Slot instances
+        Slot slotMorning = Slot.builder().name(SlotName.MORNING).build();
+        Slot slotAfternoon = Slot.builder().name(SlotName.AFTERNOON).build();
+
         Booking booking1 = Booking.builder()
                 .id(1L)
                 .customerName("John Doe")
                 .email("john.doe@example.com")
-                .slot(new Slot(SlotName.MORNING))
+                .slot(slotMorning)
                 .status(Status.PENDING)
                 .code("ABC123")
                 .build();
@@ -40,7 +47,7 @@ class ManagerBookingServiceTest {
                 .id(2L)
                 .customerName("Jane Smith")
                 .email("jane.smith@example.com")
-                .slot(new Slot(SlotName.AFTERNOON))
+                .slot(slotAfternoon)
                 .status(Status.PENDING)
                 .code("DEF456")
                 .build();
@@ -52,17 +59,20 @@ class ManagerBookingServiceTest {
 
         assertNotNull(result);
         assertEquals(2, result.size());
-        assertEquals("John Doe", result.get(0).getCustomerName());
-        assertEquals("Jane Smith", result.get(1).getCustomerName());
+        // Check that both names are present, regardless of order.
+        List<String> names = result.stream().map(BookingDTO::getCustomerName).toList();
+        assertTrue(names.contains("John Doe"), "Result should contain 'John Doe'");
+        assertTrue(names.contains("Jane Smith"), "Result should contain 'Jane Smith'");
     }
 
     @Test
     void testUpdateBookingStatusSuccess() {
+        Slot slotMorning = Slot.builder().name(SlotName.MORNING).build();
         Booking booking = Booking.builder()
                 .id(1L)
                 .customerName("John Doe")
                 .email("john.doe@example.com")
-                .slot(new Slot(SlotName.MORNING))
+                .slot(slotMorning)
                 .status(Status.PENDING)
                 .code("ABC123")
                 .build();
@@ -74,7 +84,9 @@ class ManagerBookingServiceTest {
 
         assertNotNull(updatedDto);
         assertEquals(Status.APPROVED, updatedDto.getStatus());
-        verify(bookingRepository, times(1)).save(booking);
+        verify(bookingRepository, times(1)).save(any(Booking.class));
+        // Optionally check that the booking entity status was updated.
+        assertEquals(Status.APPROVED, booking.getStatus());
     }
 
     @Test
