@@ -27,12 +27,16 @@ public class BookingService implements IBookingService {
     }
 
     @Override
-    public BookingDTO create(BookingDTO bookingDTO) throws  SlotNotFoundException{
+    public BookingDTO create(BookingDTO bookingDTO) throws SlotNotFoundException {
         Slot slot = slotRepository.findById(bookingDTO.getSlot().getId())
                 .orElseThrow(() -> new SlotNotFoundException("Booking not found with code: " + bookingDTO.getSlot().getId()));
 
-        Booking createdBooking
-                = bookingRepository.save(BookingBuilder.toEntity(bookingDTO, SlotDTO.builder().id(slot.getId()).name(slot.getName()).build()));
+        Booking createdBooking = bookingRepository
+                .save(BookingBuilder.toEntity(bookingDTO,
+                        SlotDTO.builder()
+                                .id(slot.getId())
+                                .name(slot.getName())
+                                .build()));
 
         return BookingBuilder.toDto(createdBooking);
     }
@@ -41,6 +45,7 @@ public class BookingService implements IBookingService {
     public BookingDTO getByCode(String code) {
         Booking booking = bookingRepository.findBookingByCode(code)
                 .orElseThrow(() -> new BookingNotFoundException("Booking not found with code: " + code));
+
         return BookingBuilder.toDto(booking);
     }
 }
