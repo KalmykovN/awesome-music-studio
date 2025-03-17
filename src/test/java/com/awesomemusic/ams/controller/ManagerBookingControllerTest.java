@@ -25,7 +25,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class ManagerBookingControllerTest {
+class ManagerBookingControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
@@ -37,8 +37,7 @@ public class ManagerBookingControllerTest {
     private ObjectMapper objectMapper;
 
     @Test
-    public void testGetPendingBookings() throws Exception {
-        // Create two sample BookingDTO objects for pending bookings.
+    void testGetPendingBookings() throws Exception {
         BookingDTO booking1 = BookingDTO.builder()
                 .id(1L)
                 .customerName("John Doe")
@@ -59,7 +58,6 @@ public class ManagerBookingControllerTest {
         List<BookingDTO> pendingBookings = List.of(booking1, booking2);
         Mockito.when(managerBookingService.getPendingBookings()).thenReturn(pendingBookings);
 
-        // Perform GET request and verify JSON response.
         mockMvc.perform(get("/api/v1/manager/bookings"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.length()").value(2))
@@ -80,8 +78,7 @@ public class ManagerBookingControllerTest {
     }
 
     @Test
-    public void testApproveBooking() throws Exception {
-        // Create a sample BookingDTO representing an approved booking.
+    void testApproveBooking() throws Exception {
         BookingDTO updatedBooking = BookingDTO.builder()
                 .id(1L)
                 .customerName("John Doe")
@@ -94,7 +91,6 @@ public class ManagerBookingControllerTest {
         Mockito.when(managerBookingService.updateBookingStatus(eq("ABC123"), eq(Status.APPROVED)))
                 .thenReturn(updatedBooking);
 
-        // Perform PATCH request to approve booking and verify response.
         mockMvc.perform(patch("/api/v1/manager/bookings/ABC123/approve")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
@@ -103,8 +99,7 @@ public class ManagerBookingControllerTest {
     }
 
     @Test
-    public void testRejectBooking() throws Exception {
-        // Create a sample BookingDTO representing a rejected booking.
+    void testRejectBooking() throws Exception {
         BookingDTO updatedBooking = BookingDTO.builder()
                 .id(1L)
                 .customerName("John Doe")
@@ -117,7 +112,6 @@ public class ManagerBookingControllerTest {
         Mockito.when(managerBookingService.updateBookingStatus(eq("ABC123"), eq(Status.REJECTED)))
                 .thenReturn(updatedBooking);
 
-        // Perform PATCH request to reject booking and verify response.
         mockMvc.perform(patch("/api/v1/manager/bookings/ABC123/reject")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())

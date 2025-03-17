@@ -22,7 +22,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class BookingControllerTest {
+class BookingControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
@@ -35,7 +35,7 @@ public class BookingControllerTest {
 
 
     @Test
-    public void testCreateBooking() throws Exception {
+    void testCreateBooking() throws Exception {
         // Construct request DTO (without ID, status, or code)
         BookingDTO requestDto = BookingDTO.builder()
                 .customerName("John Doe")
@@ -69,7 +69,7 @@ public class BookingControllerTest {
     }
 
     @Test
-    public void testGetBooking() throws Exception {
+    void testGetBooking() throws Exception {
         BookingDTO responseDto = BookingDTO.builder()
                 .id(1L)
                 .customerName("John Doe")

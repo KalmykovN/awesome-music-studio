@@ -2,7 +2,6 @@ package com.awesomemusic.ams.controller;
 
 import com.awesomemusic.ams.model.dto.BookingDTO;
 import com.awesomemusic.ams.service.IBookingService;
-import com.awesomemusic.ams.service.impl.BookingService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

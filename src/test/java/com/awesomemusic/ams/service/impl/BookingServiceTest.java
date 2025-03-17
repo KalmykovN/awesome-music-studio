@@ -13,6 +13,7 @@ import com.awesomemusic.ams.repository.SlotRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.*;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.Optional;
 
@@ -20,7 +21,8 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
-public class BookingServiceTest {
+
+class BookingServiceTest {
     @Mock
     private BookingRepository bookingRepository;
 
@@ -36,22 +38,19 @@ public class BookingServiceTest {
     }
 
     @Test
-    public void testCreateBookingSuccess() throws SlotNotFoundException {
-        // Build request DTO (without ID, status, or code; these are set in the service/entity)
+    void testCreateBookingSuccess() throws SlotNotFoundException {
         BookingDTO requestDto = BookingDTO.builder()
                 .customerName("John Doe")
                 .email("john.doe@example.com")
                 .slot(SlotDTO.builder().id(1L).build())
                 .build();
 
-        // Simulate slot lookup
         Slot slot = Slot.builder()
                 .id(1L)
                 .name(SlotName.MORNING)
                 .build();
         when(slotRepository.findById(1L)).thenReturn(Optional.of(slot));
 
-        // Simulate repository saving of the Booking. The BookingBuilder converts the DTO to an entity.
         Booking savedBooking = Booking.builder()
                 .id(1L)
                 .customerName("John Doe")
@@ -62,10 +61,8 @@ public class BookingServiceTest {
                 .build();
         when(bookingRepository.save(any(Booking.class))).thenReturn(savedBooking);
 
-        // Call the service method
         BookingDTO createdBooking = bookingService.create(requestDto);
 
-        // Verify the returned DTO
         assertNotNull(createdBooking);
         assertEquals(1L, createdBooking.getId());
         assertEquals("John Doe", createdBooking.getCustomerName());
@@ -78,8 +75,7 @@ public class BookingServiceTest {
     }
 
     @Test
-    public void testCreateBookingSlotNotFound() {
-        // Build a request with a slot ID that does not exist
+    void testCreateBookingSlotNotFound() {
         BookingDTO requestDto = BookingDTO.builder()
                 .customerName("Jane Doe")
                 .email("jane.doe@example.com")
@@ -88,17 +84,16 @@ public class BookingServiceTest {
 
         when(slotRepository.findById(99L)).thenReturn(Optional.empty());
 
-        // Expect the service to throw a SlotNotFoundException
         assertThrows(SlotNotFoundException.class, () -> bookingService.create(requestDto));
     }
 
     @Test
-    public void testGetByCodeSuccess() {
-        // Simulate an existing booking in the repository
+    void testGetByCodeSuccess() {
         Slot slot = Slot.builder()
                 .id(1L)
                 .name(SlotName.MORNING)
                 .build();
+
         Booking booking = Booking.builder()
                 .id(1L)
                 .customerName("John Doe")
@@ -124,7 +119,7 @@ public class BookingServiceTest {
     }
 
     @Test
-    public void testGetByCodeNotFound() {
+    void testGetByCodeNotFound() {
         when(bookingRepository.findBookingByCode("INVALID")).thenReturn(Optional.empty());
         assertThrows(com.awesomemusic.ams.exceptions.BookingNotFoundException.class, () ->
                 bookingService.getByCode("INVALID"));

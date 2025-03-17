@@ -2,9 +2,7 @@ package com.awesomemusic.ams.model.dto;
 
 import com.awesomemusic.ams.model.Booking;
 import com.awesomemusic.ams.model.Slot;
-import org.springframework.stereotype.Component;
 
-@Component
 public class BookingBuilder {
     public static BookingDTO toDto(Booking booking) {
         if (booking == null) {

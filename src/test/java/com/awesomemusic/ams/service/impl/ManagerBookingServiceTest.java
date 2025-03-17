@@ -7,9 +7,9 @@ import com.awesomemusic.ams.model.enumerations.Status;
 import com.awesomemusic.ams.model.Slot;
 import com.awesomemusic.ams.model.dto.BookingDTO;
 import com.awesomemusic.ams.repository.BookingRepository;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.*;
+import org.mockito.InjectMocks;
+import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.util.List;
 import java.util.Optional;
@@ -17,22 +17,17 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-public class ManagerBookingServiceTest {
 
-    @Mock
+class ManagerBookingServiceTest {
+
+    @MockBean
     private BookingRepository bookingRepository;
 
     @InjectMocks
     private ManagerBookingService managerBookingService;
 
-    @BeforeEach
-    public void setUp() {
-        MockitoAnnotations.openMocks(this);
-    }
-
     @Test
-    public void testGetPendingBookings() {
-        // Create two sample Booking entities with status PENDING
+    void testGetPendingBookings() {
         Booking booking1 = Booking.builder()
                 .id(1L)
                 .customerName("John Doe")
@@ -62,8 +57,7 @@ public class ManagerBookingServiceTest {
     }
 
     @Test
-    public void testUpdateBookingStatusSuccess() {
-        // Simulate an existing booking with PENDING status.
+    void testUpdateBookingStatusSuccess() {
         Booking booking = Booking.builder()
                 .id(1L)
                 .customerName("John Doe")
@@ -76,7 +70,6 @@ public class ManagerBookingServiceTest {
         when(bookingRepository.findBookingByCode("ABC123")).thenReturn(Optional.of(booking));
         when(bookingRepository.save(any(Booking.class))).thenAnswer(invocation -> invocation.getArgument(0));
 
-        // Call the update method to change status to APPROVED.
         BookingDTO updatedDto = managerBookingService.updateBookingStatus("ABC123", Status.APPROVED);
 
         assertNotNull(updatedDto);
@@ -85,7 +78,7 @@ public class ManagerBookingServiceTest {
     }
 
     @Test
-    public void testUpdateBookingStatusNotFound() {
+    void testUpdateBookingStatusNotFound() {
         when(bookingRepository.findBookingByCode("INVALID")).thenReturn(Optional.empty());
 
         assertThrows(BookingNotFoundException.class, () ->

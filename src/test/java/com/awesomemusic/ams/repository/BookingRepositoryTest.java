@@ -12,7 +12,7 @@ import java.util.Optional;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @DataJpaTest
-public class BookingRepositoryTest {
+class BookingRepositoryTest {
 
     @Autowired
     private BookingRepository bookingRepository;
@@ -21,13 +21,11 @@ public class BookingRepositoryTest {
     private SlotRepository slotRepository;
 
     @Test
-    public void testFindBookingByCode() {
-        // Create and persist a Slot first
+    void testFindBookingByCode() {
         Slot slot = new Slot();
         slot.setName(SlotName.MORNING);
         slot = slotRepository.save(slot);
 
-        // Create and persist a Booking
         Booking booking = Booking.builder()
                 .customerName("John Doe")
                 .email("john.doe@example.com")
@@ -36,26 +34,24 @@ public class BookingRepositoryTest {
                 .build();
         booking = bookingRepository.save(booking);
 
-        // Use custom repository method to retrieve by generated code
         Optional<Booking> found = bookingRepository.findBookingByCode(booking.getCode());
         assertThat(found).isPresent();
         assertThat(found.get().getCustomerName()).isEqualTo("John Doe");
     }
 
     @Test
-    public void testFindByStatus() {
-        // Create and persist a Slot
+    void testFindByStatus() {
         Slot slot = new Slot();
         slot.setName(SlotName.MORNING);
         slot = slotRepository.save(slot);
 
-        // Create two bookings with different statuses
         Booking booking1 = Booking.builder()
                 .customerName("John Doe")
                 .email("john.doe@example.com")
                 .slot(slot)
                 .status(Status.PENDING)
                 .build();
+
         Booking booking2 = Booking.builder()
                 .customerName("Jane Smith")
                 .email("jane.smith@example.com")
@@ -65,7 +61,6 @@ public class BookingRepositoryTest {
         bookingRepository.save(booking1);
         bookingRepository.save(booking2);
 
-        // Retrieve only pending bookings
         List<Booking> pendingBookings = bookingRepository.findByStatus(Status.PENDING);
         assertThat(pendingBookings).hasSize(1);
         assertThat(pendingBookings.get(0).getCustomerName()).isEqualTo("John Doe");
