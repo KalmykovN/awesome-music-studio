@@ -10,8 +10,6 @@ import com.awesomemusic.ams.model.dto.SlotDTO;
 import com.awesomemusic.ams.repository.BookingRepository;
 import com.awesomemusic.ams.repository.SlotRepository;
 import com.awesomemusic.ams.service.IBookingService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
