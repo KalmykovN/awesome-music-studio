@@ -16,7 +16,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.eq;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -36,14 +35,12 @@ class BookingControllerTest {
 
     @Test
     void testCreateBooking() throws Exception {
-        // Construct request DTO (without ID, status, or code)
         BookingDTO requestDto = BookingDTO.builder()
                 .customerName("John Doe")
                 .email("john.doe@example.com")
                 .slot(SlotDTO.builder().id(1L).name(SlotName.MORNING).build())
                 .build();
 
-        // Construct response DTO (with generated ID, status, and code)
         BookingDTO responseDto = BookingDTO.builder()
                 .id(1L)
                 .customerName("John Doe")
@@ -79,7 +76,7 @@ class BookingControllerTest {
                 .code("ABC123")
                 .build();
 
-        Mockito.when(bookingService.getByCode(eq("ABC123"))).thenReturn(responseDto);
+        Mockito.when(bookingService.getByCode("ABC123")).thenReturn(responseDto);
 
         mockMvc.perform(get("/api/v1/bookings/ABC123/status"))
                 .andExpect(status().isOk())

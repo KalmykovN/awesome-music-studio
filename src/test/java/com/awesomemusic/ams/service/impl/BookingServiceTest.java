@@ -21,7 +21,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
-@ExtendWith(MockitoExtension.class) // Use Mockito extension for unit tests.
+@ExtendWith(MockitoExtension.class)
 class BookingServiceTest {
 
     @Mock
