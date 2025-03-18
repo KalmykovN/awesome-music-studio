@@ -1,7 +1,5 @@
 package com.awesomemusic.ams.model.dto;
 
-import com.awesomemusic.ams.model.Slot;
-import com.awesomemusic.ams.model.enumerations.SlotName;
 import com.awesomemusic.ams.model.enumerations.Status;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;
