@@ -50,6 +50,7 @@ class ManagerBookingControllerTest {
                 .status(Status.PENDING)
                 .code("ABC123")
                 .build();
+
         BookingDTO booking2 = BookingDTO.builder()
                 .id(2L)
                 .customerName("Jane Smith")

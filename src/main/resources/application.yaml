@@ -16,5 +16,6 @@ spring:
   h2:
     console:
       enabled: true
+
 server:
-  port: 8181
+  port: 8080

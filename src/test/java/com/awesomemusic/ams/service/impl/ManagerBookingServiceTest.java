@@ -22,7 +22,6 @@ import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class ManagerBookingServiceTest {
-
     @Mock
     private BookingRepository bookingRepository;
 
@@ -31,7 +30,6 @@ class ManagerBookingServiceTest {
 
     @Test
     void testGetPendingBookings() {
-        // Use the builder to create Slot instances
         Slot slotMorning = Slot.builder().name(SlotName.MORNING).build();
         Slot slotAfternoon = Slot.builder().name(SlotName.AFTERNOON).build();
 
@@ -43,6 +41,7 @@ class ManagerBookingServiceTest {
                 .status(Status.PENDING)
                 .code("ABC123")
                 .build();
+
         Booking booking2 = Booking.builder()
                 .id(2L)
                 .customerName("Jane Smith")
@@ -59,7 +58,6 @@ class ManagerBookingServiceTest {
 
         assertNotNull(result);
         assertEquals(2, result.size());
-        // Check that both names are present, regardless of order.
         List<String> names = result.stream().map(BookingDTO::getCustomerName).toList();
         assertTrue(names.contains("John Doe"), "Result should contain 'John Doe'");
         assertTrue(names.contains("Jane Smith"), "Result should contain 'Jane Smith'");
@@ -85,7 +83,6 @@ class ManagerBookingServiceTest {
         assertNotNull(updatedDto);
         assertEquals(Status.APPROVED, updatedDto.getStatus());
         verify(bookingRepository, times(1)).save(any(Booking.class));
-        // Optionally check that the booking entity status was updated.
         assertEquals(Status.APPROVED, booking.getStatus());
     }
 

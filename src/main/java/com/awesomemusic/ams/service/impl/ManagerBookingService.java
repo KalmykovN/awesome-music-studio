@@ -8,13 +8,16 @@ import com.awesomemusic.ams.model.enumerations.Status;
 import com.awesomemusic.ams.repository.BookingRepository;
 import com.awesomemusic.ams.service.IManagerBookingService;
 import jakarta.transaction.Transactional;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class ManagerBookingService implements IManagerBookingService { private final BookingRepository bookingRepository;
+public class ManagerBookingService implements IManagerBookingService {
+    private final BookingRepository bookingRepository;
 
+    @Autowired
     public ManagerBookingService(BookingRepository bookingRepository) {
         this.bookingRepository = bookingRepository;
     }
@@ -32,6 +35,7 @@ public class ManagerBookingService implements IManagerBookingService { private f
     public BookingDTO updateBookingStatus(String code, Status newStatus) {
         Booking booking = bookingRepository.findBookingByCode(code)
                 .orElseThrow(() -> new BookingNotFoundException("Booking not found with code: " + code));
+
         booking.setStatus(newStatus);
         bookingRepository.save(booking);
         return BookingBuilder.toDto(booking);

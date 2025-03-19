@@ -23,7 +23,6 @@ import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class BookingServiceTest {
-
     @Mock
     private BookingRepository bookingRepository;
 
@@ -79,7 +78,6 @@ class BookingServiceTest {
                 .build();
 
         when(slotRepository.findById(99L)).thenReturn(Optional.empty());
-
         assertThrows(SlotNotFoundException.class, () -> bookingService.create(requestDto));
     }
 

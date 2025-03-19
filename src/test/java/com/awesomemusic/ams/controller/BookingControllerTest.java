@@ -36,7 +36,6 @@ class BookingControllerTest {
     @Autowired
     private ObjectMapper objectMapper;
 
-
     @Test
     void testCreateBooking() throws Exception {
         BookingDTO requestDto = BookingDTO.builder()
