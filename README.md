@@ -38,19 +38,29 @@ The app will start on `http://localhost:8080`
 
 ## API Endpoints
 ### 1. Create a Booking
-**POST** `/api/bookings`
+**POST** `http://localhost:8080/api/v1/bookings`
 ```json
 {
   "customerName": "John Doe",
-  "timeSlot": "MORNING"
+  "email": "johndoe@example.com",
+  "slot": {
+    "id": 1
+  }
 }
 ```
 
-### 2. Get Pending Bookings
-**GET** `/api/bookings/pending`
+### 2. Get the Booking by code
+**GET** `http://localhost:8080/api/v1/bookings/{code}/status`
 
-### 3. Update Booking Status
-**PUT** `/api/bookings/{id}/status?status=APPROVED`
+
+### 3. Get Pending Bookings (Manager)
+**GET** `http://localhost:8080/api/v1/manager/bookings`
+
+### 4. Approve Booking
+**PATCH** `http://localhost:8080/api/v1/manager/bookings/{code}/approve`
+
+### 5. Reject Booking
+**PATCH** `http://localhost:8080/api/v1/manager/bookings/{code}/reject`
 
 ## Database Access
 H2 database console available at: `http://localhost:8080/h2-console`
