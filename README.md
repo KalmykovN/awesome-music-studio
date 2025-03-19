@@ -37,6 +37,15 @@ mvn spring-boot:run
 The app will start on `http://localhost:8080`
 
 ## API Endpoints
+### 0. Available slots
+```json
+{
+  "MORNING": 1,
+  "AFTERNOON": 2,
+  "EVENING": 3
+}
+```
+
 ### 1. Create a Booking
 **POST** `http://localhost:8080/api/v1/bookings`
 ```json
@@ -52,14 +61,13 @@ The app will start on `http://localhost:8080`
 ### 2. Get the Booking by code
 **GET** `http://localhost:8080/api/v1/bookings/{code}/status`
 
-
 ### 3. Get Pending Bookings (Manager)
 **GET** `http://localhost:8080/api/v1/manager/bookings`
 
-### 4. Approve Booking
+### 4. Approve Booking (Manager)
 **PATCH** `http://localhost:8080/api/v1/manager/bookings/{code}/approve`
 
-### 5. Reject Booking
+### 5. Reject Booking (Manager)
 **PATCH** `http://localhost:8080/api/v1/manager/bookings/{code}/reject`
 
 ## Database Access
