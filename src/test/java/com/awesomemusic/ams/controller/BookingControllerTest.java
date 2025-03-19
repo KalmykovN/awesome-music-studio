@@ -1,5 +1,6 @@
 package com.awesomemusic.ams.controller;
 
+import com.awesomemusic.ams.config.InitializeDatabase;
 import com.awesomemusic.ams.model.dto.BookingDTO;
 import com.awesomemusic.ams.model.dto.SlotDTO;
 import com.awesomemusic.ams.model.enumerations.SlotName;
@@ -9,6 +10,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
@@ -22,9 +24,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 class BookingControllerTest {
-
     @Autowired
     private MockMvc mockMvc;
+
+    @MockBean
+    private InitializeDatabase conf;
 
     @MockBean
     private IBookingService bookingService;

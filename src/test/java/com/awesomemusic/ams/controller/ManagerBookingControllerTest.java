@@ -1,6 +1,7 @@
 package com.awesomemusic.ams.controller;
 
 
+import com.awesomemusic.ams.config.InitializeDatabase;
 import com.awesomemusic.ams.model.dto.BookingDTO;
 import com.awesomemusic.ams.model.dto.SlotDTO;
 import com.awesomemusic.ams.model.enumerations.SlotName;
@@ -12,6 +13,7 @@ import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
@@ -23,12 +25,14 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@WebMvcTest(ManagerBookingController.class)
+@SpringBootTest
 @AutoConfigureMockMvc
 class ManagerBookingControllerTest {
-
     @Autowired
     private MockMvc mockMvc;
+
+    @MockBean
+    private InitializeDatabase conf;
 
     @MockBean
     private IManagerBookingService managerBookingService;
